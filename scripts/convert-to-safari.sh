@@ -23,6 +23,9 @@ fi
 
 mkdir -p "$OUT_DIR"
 
+# App ID must be an exact prefix of the extension ID:
+#   com.local.youtube-ad-blocker
+#   com.local.youtube-ad-blocker.Extension
 echo "Converting $EXTENSION_DIR → $OUT_DIR"
 xcrun safari-web-extension-converter "$EXTENSION_DIR" \
   --project-location "$OUT_DIR" \
@@ -32,6 +35,17 @@ xcrun safari-web-extension-converter "$EXTENSION_DIR" \
   --force \
   --no-prompt \
   --macos-only
+
+# Converter sometimes rewrites the app ID casing; normalize after generation.
+PBXPROJ=$(find "$OUT_DIR" -name project.pbxproj | head -n 1)
+if [[ -n "${PBXPROJ}" ]]; then
+  /usr/bin/sed -i '' \
+    's/PRODUCT_BUNDLE_IDENTIFIER = "com\.local\.YouTube-Ad-Blocker";/PRODUCT_BUNDLE_IDENTIFIER = "com.local.youtube-ad-blocker";/g' \
+    "$PBXPROJ"
+  /usr/bin/sed -i '' \
+    's/PRODUCT_BUNDLE_IDENTIFIER = "com\.local\.youtube-ad-blocker\.Extension";/PRODUCT_BUNDLE_IDENTIFIER = "com.local.youtube-ad-blocker.Extension";/g' \
+    "$PBXPROJ"
+fi
 
 echo
 echo "Done. Next:"
