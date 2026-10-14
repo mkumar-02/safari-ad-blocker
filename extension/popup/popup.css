@@ -1,0 +1,61 @@
+:root {
+  color-scheme: light dark;
+  --bg: #111;
+  --fg: #f2f2f2;
+  --muted: #a0a0a0;
+  --accent: #ff4d4d;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f7f7f7;
+    --fg: #161616;
+    --muted: #5c5c5c;
+    --accent: #c62828;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 260px;
+  font: 13px/1.45 "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+main {
+  padding: 14px 16px 16px;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.status {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  color: var(--fg);
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
